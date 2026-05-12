@@ -6,6 +6,9 @@ utilizar pandas, numpy o scipy.
 """
 
 
+import csv
+
+
 def pregunta_09():
     """
     Retorne un diccionario que contenga la cantidad de registros en que
@@ -24,3 +27,19 @@ def pregunta_09():
      'jjj': 18}}
 
     """
+
+    cadena = {}
+
+    with open("files/input/data.csv", mode="r", encoding="utf-8") as archivo_csv:
+        lector_csv = csv.reader(archivo_csv, delimiter="\t")
+
+        for fila in lector_csv:
+            listaValores = fila[4].split(",")
+            for valor in listaValores:
+                claveValor = valor.split(":")
+                if cadena.get(claveValor[0]) == None:
+                    cadena[claveValor[0]] = 1
+                else:
+                    cadena[claveValor[0]] += 1
+
+    return dict(sorted(cadena.items()))

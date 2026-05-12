@@ -26,3 +26,37 @@ def pregunta_06():
      ('jjj', 5, 17)]
 
     """
+
+    # Lee el archivo data.csv
+    with open('files/input/data.csv', 'r') as file:
+        lines = file.readlines()
+
+    # Inicializa un diccionario para almacenar los valores asociados a cada clave
+    key_values = {}
+
+    # Procesa cada línea del archivo
+    for line in lines:
+        # Divide la línea en columnas
+        columns = line.strip().split('\t')
+        # La columna 5 es la que contiene el diccionario codificado
+        dict_str = columns[4]
+        # Divide el diccionario en pares clave-valor
+        pairs = dict_str.split(',')
+        for pair in pairs:
+            key, value = pair.split(':')
+            value = int(value)
+            if key not in key_values:
+                key_values[key] = []
+            key_values[key].append(value)
+
+    # Calcula el valor mínimo y máximo para cada clave
+    result = []
+    for key, values in key_values.items():
+        min_value = min(values)
+        max_value = max(values)
+        result.append((key, min_value, max_value))
+
+    # Ordena el resultado por clave
+    result.sort(key=lambda x: x[0])
+
+    return result

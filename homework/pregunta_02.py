@@ -15,3 +15,5 @@ def pregunta_02():
     [('A', 8), ('B', 7), ('C', 5), ('D', 6), ('E', 14)]
 
     """
+
+    return sorted([(letra, sum([1 for line in open("files/input/data.csv") if line.startswith(letra)])) for letra in "ABCDE"])
